@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Eli 💖 - Nuestros 2 Meses</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Quicksand:wght@400;600&family=Sacramento&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #1a0a0f;
+            color: #fce4ec;
+            font-family: 'Quicksand', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Corazones flotantes */
+        .hearts-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            color: rgba(255, 105, 180, 0.25);
+            animation: floatUp 6s linear infinite;
+            font-size: 20px;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+
+        /* Sobre inicial */
+        #envelope-container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        #envelope-container:hover {
+            transform: scale(1.05);
+        }
+
+        .envelope {
+            width: 300px;
+            height: 200px;
+            background: #d81b60;
+            position: relative;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 0; left: 0;
+            width: 0; height: 0;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-top: 110px solid #ad1457;
+            transform-origin: top;
+            transition: transform 0.6s ease;
+        }
+
+        .envelope.open .envelope-flap {
+            transform: rotateX(180deg);
+            z-index: 5;
+        }
+
+        .envelope-text {
+            position: absolute;
+            bottom: 40px;
+            width: 100%;
+            text-align: center;
+            font-family: 'Sacramento', cursive;
+            font-size: 32px;
+            color: #fff;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+        /* Contenido Principal */
+        #main-content {
+            display: none;
+            z-index: 10;
+            width: 90%;
+            max-width: 850px;
+            margin: 40px auto;
+            background: rgba(40, 15, 25, 0.85);
+            border: 2px solid #e91e63;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 0 40px rgba(233, 30, 99, 0.3);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 1.2s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-family: 'Sacramento', cursive;
+            font-size: 55px;
+            color: #ff80ab;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #f8bbd0;
+            letter-spacing: 2px;
+        }
+
+        /* Reproductor de música */
+        .music-player {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 12px 20px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 0 auto 25px auto;
+            width: fit-content;
+            border: 1px solid rgba(233, 30, 99, 0.4);
+        }
+
+        .music-player span {
+            font-size: 14px;
+            color: #ff80ab;
+        }
+
+        audio {
+            height: 35px;
+            accent-color: #e91e63;
+        }
+
+        /* Carta de amor */
+        .letter-body {
+            background: #fff8e8;
+            color: #3e2723;
+            padding: 35px;
+            border-radius: 10px;
+            font-family: 'Caveat', cursive;
+            font-size: 26px;
+            line-height: 1.6;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .letter-body::before {
+            content: "♥ 2 Meses";
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 20px;
+            color: #ad1457;
+        }
+
+        /* Galería Polaroid */
+        .gallery-title {
+            text-align: center;
+            font-family: 'Sacramento', cursive;
+            font-size: 40px;
+            color: #ff80ab;
+            margin-bottom: 25px;
+        }
+
+        .polaroid-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .polaroid {
+            background: #fff;
+            padding: 12px 12px 25px 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            width: 230px;
+            text-align: center;
+        }
+
+        .polaroid:nth-child(1) { transform: rotate(-3deg); }
+        .polaroid:nth-child(2) { transform: rotate(2deg); }
+        .polaroid:nth-child(3) { transform: rotate(-2deg); }
+
+        .polaroid:hover {
+            transform: scale(1.08) rotate(0deg);
+            z-index: 20;
+            box-shadow: 0 12px 30px rgba(233, 30, 99, 0.5);
+        }
+
+        .polaroid img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 2px;
+            display: block;
+        }
+
+        .polaroid p {
+            font-family: 'Caveat', cursive;
+            color: #333;
+            font-size: 22px;
+            margin-top: 10px;
+        }
+
+        .counter-box {
+            text-align: center;
+            margin-top: 30px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            font-size: 16px;
+            color: #f8bbd0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hearts-bg" id="hearts-bg"></div>
+
+    <!-- Sobre Inicial -->
+    <div id="envelope-container" onclick="openEnvelope()">
+        <div class="envelope" id="envelope">
+            <div class="envelope-flap"></div>
+            <div class="envelope-text">Para: Eli 💌<br><span style="font-size: 18px; font-family: 'Quicksand'">Haz clic para abrir</span></div>
+        </div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <div id="main-content">
+        <header>
+            <h1>Feliz 2 Meses, Mi Vida</h1>
+            <div class="subtitle">Eli & Alex • Nuestro amor en código y latidos</div>
+        </header>
+
+        <!-- Reproductor de Música -->
+        <div class="music-player">
+            <span>🎶 Mon Laferte - Primaveral</span>
+            <audio id="bg-music" controls loop preload="auto">
+                <source src="Mon Laferte - Primaveral (Video Oficial).mp3" type="audio/mpeg">
+                <source src="musica.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+
+        <!-- Carta de Amor -->
+        <div class="letter-body">
+            <p>Mi pequeña Eli,</p><br>
+            <p>Hola, Eli. La verdad no tengo palabras para describir el amor que siento por ti; sentiría que no puedo decirlo con palabras, es por eso que me cuesta mucho. Hoy cumplimos 2 meses, capaz para otras personas esto no sería mucho, pero para mí cada minuto, segundo, hora, día, semana, mes a tu lado es importante, porque es tiempo que llevo con la persona que amo. Explicar el cómo me siento contigo, a tu lado, es difícil para mí. A tu lado siento paz, tranquilidad, esa sensación de poder ser yo mismo a tu lado, el poder decirte cualquier mínima cosa que pasa en mi día a día, el tener la confianza de tus padres, la de tu hermana o el simple hecho de ser parte de tu vida. Eli, sé que este mes fue complicado por ciertos problemas o diferencias que tuvimos, pero eso jamás cambiará lo que siento por ti, el cuánto te amo y aprecio cada parte de ti, cada lado.</p><br>
+            <p>A veces dices que eres una chica complicada; jamás lo vi de esa forma, sé que te sientes complicada o que a veces te cuestan ciertas cosas y yo no puedo saber qué es, pero de mi parte siempre tendrás mi apoyo, jamás tuve y tendré por qué juzgarte. Eres aquella chica que trajo el brillo de nuevo a mi vida con tus golpesitos, la forma en que expresas tu cariño, el hacer cosas juntos o simplemente ser parte de tu día, el convivir. Te juro que te amo, siempre me pareciste una chica tan linda, tan delicada, una chica que pasó por mucho y que a pesar de eso demostró lo fuerte que puede llegar a ser. Te amo, Eli, te amo hoy y te amaré por siempre. Felices 2 meses, mi sapita linda, te amo.</p><br>
+            <p style="text-align: right;">Te amo con todo mi corazón,<br><strong>Alex ❤️</strong></p>
+        </div>
+
+        <!-- Galería de 3 Fotos -->
+        <h2 class="gallery-title">Nuestros Recuerdos Favoritos</h2>
+        <div class="polaroid-grid">
+            <div class="polaroid">
+                <!-- Foto 1 (Abrazo) incrustada directa -->
+                <img id="img1" alt="Foto Abrazo">
+                <p>Tú y yo ❤</p>
+            </div>
+            <div class="polaroid">
+                <!-- Foto 2 (Niños) incrustada directa -->
+                <img id="img2" alt="Foto Pequeños">
+                <p>Mini nosotros 💫</p>
+            </div>
+            <div class="polaroid">
+                <!-- Foto 3 (Caballo) incrustada directa -->
+                <img id="img3" alt="Foto Caballo">
+                <p>Siempre juntos 🐎</p>
+            </div>
+        </div>
+
+        <div class="counter-box">
+            Celebrando cada segundo a tu lado. Te amo, Eli. 💕
+        </div>
+    </div>
+
+    <script>
+        // Cargar imágenes al iniciar
+        window.addEventListener('DOMContentLoaded', () => {
+            // Reemplazo directo con imágenes o archivos locales
+            document.getElementById('img1').src = '1.jpg';
+            document.getElementById('img2').src = '2.png';
+            document.getElementById('img3').src = '3.jpg';
+
+            // Respaldos por si la extensión varía en disco
+            document.getElementById('img1').onerror = function() { this.src = '1.png'; };
+            document.getElementById('img2').onerror = function() { this.src = '2.jpg'; };
+            document.getElementById('img3').onerror = function() { this.src = '3.png'; };
+        });
+
+        function openEnvelope() {
+            const envelope = document.getElementById('envelope');
+            envelope.classList.add('open');
+
+            setTimeout(() => {
+                document.getElementById('envelope-container').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+                
+                // Iniciar la música automáticamente al hacer clic en el sobre
+                const music = document.getElementById('bg-music');
+                music.play().catch(error => {
+                    console.log("Música lista:", error);
+                });
+            }, 600);
+        }
+
+        function createHeart() {
+            const heartsBg = document.getElementById('hearts-bg');
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+            heartsBg.appendChild(heart);
+
+            setTimeout(() => { heart.remove(); }, 6000);
+        }
+
+        setInterval(createHeart, 400);
+    </script>
+</body>
+</html>
